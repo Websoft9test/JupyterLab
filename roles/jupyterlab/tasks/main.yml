@@ -7,7 +7,15 @@
     jupyter notebook
     pip install voila
 
-- name: Restart jupyterlab
+
+- name: Copy jupyterlab.service
+  copy:
+    src: jupyterlab.service
+    dest: /lib/systemd/system/rethinkdb.service
+
+
+# Enable service
+- name: enable and restart jupyterlab
   service:
     name: jupyterlab.service
     state: restarted
@@ -25,7 +33,8 @@
 # must use sudo sh -c to solve the no-root permission
 - block:
   - name: Check JupyterLab Version
-    shell: sudo sh -c "echo jupyter-lab --version 1>> /data/logs/install_version.txt"
+    shell: sudo sh -c "echo `jupyter --version  |sed -n 1p` > /data/logs/install_version.txt"
+    
 
 
 # check service state

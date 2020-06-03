@@ -1,0 +1,8 @@
+[Unit]
+Description=jupyter notebook
+After=
+[Service]
+Type=simple
+ExecStart=/usr/bin jupyter notebook --ip=0.0.0.0 --allow-root
+[Install]
+WantedBy=multi-user.target

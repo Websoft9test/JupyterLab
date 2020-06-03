@@ -53,11 +53,10 @@ docker run -p 8888:8888 jupyter/scipy-notebook:17aba6048f44
 
 
 ## 服务
-
-本项目安装后会自动生成
+启动服务：jupyter notebook --ip=0.0.0.0 --allow-root
 
 ## 版本问题
-sudo sh -c "echo jupyter-lab --version 1>> /data/logs/install_version.txt"
+sudo sh -c "echo `jupyter --version  |sed -n 1p` > /data/logs/install_version.txt"
 
 ## 常见问题
 
