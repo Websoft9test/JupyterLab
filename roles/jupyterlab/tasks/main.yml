@@ -1,0 +1,98 @@
+# install JupyterLab by OS_family
+- name: Install this role on {{ansible_os_family}}
+  include: "{{ansible_os_family}}.yml"
+
+# configure JupyterLab
+
+- name: Create jupyterlab User
+  user:
+    name: jupyterlab
+    shell: /usr/sbin/nologin
+    home: /data/wwwroot/jupyterlab
+    create_home: no
+
+- name: Create jupyterlab directory
+  file:
+    path: /data/wwwroot/jupyterlab
+    state: directory
+    owner: jupyterlab
+    group: jupyterlab
+    
+- name: Download jupyterlab
+  get_url:
+    dest: /data/wwwroot/jupyterlab
+    url: "{{rabbitmq_download_url}}"
+    owner: jupyterlab
+    group: jupyterlab
+
+- name: Set jupyterlab config
+  template:
+    src: jupyterlab.conf.jinja2
+    dest: /data/wwwroot/jupyterlab/jupyterlab.conf
+    owner: jupyterlab
+    group: jupyterlab
+
+- name: Setting jupyterlab service
+  copy:
+    src: jupyterlab.service
+    dest: /lib/systemd/system/jupyterlab.service
+
+- name: Restart jupyterlab
+  service:
+    name: jupyterlab.service
+    state: restarted
+    enabled: yes
+
+- name: Create jupyterlab System User
+  user:
+      name: jupyterlab 
+      create_home: no 
+      home: /opt/jupyterlab
+      shell: /usr/sbin/nologin
+
+- name: Download jupyterlab
+  unarchive:
+      src: "{{rabbitmq_download_url}}"
+      dest: /opt/ 
+      group: jupyterlab 
+      remote_src: yes
+      owner: jupyterlab
+      mode: g+w
+
+- name: Create the storage directory for files.
+  file:
+      path: /opt/jupyterlab/data
+      state: directory 
+      owner: jupyterlab 
+      group: jupyterlab
+      mode: g+w
+      
+- name: Set database connection /opt/jupyterlab/config/config.json
+  lineinfile:
+    dest: /opt/jupyterlab/config/config.json
+    regexp: '"DataSource":'
+    line: '    "DataSource": "{{rabbitmq_db_user}}:{{rabbitmq_db_password}}@tcp(localhost:3306)/{{rabbitmq_db_name}}?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s",'
+    backrefs: yes 
+
+# set soft link, -b cover the exist links
+# ln -sb src des
+- name: set soft link
+  shell: |
+    ln -sb /opt/jupyterlab  /data/wwwroot/jupyterlab
+    ln -sb /opt/jupyterlab/config /data/config/jupyterlab
+
+# Check version,
+# must use sudo sh -c to solve the no-root permission
+- block:
+  - name: Check JupyterLab Version
+    shell: sudo sh -c "rabbitmqctl status | grep 'JupyterLab version' 1>> /data/logs/install_version.txt"
+
+  - name: Check Erlang Version
+    shell: sudo sh -c 'echo "Erlang $(yum info erlang | grep Version | sed -n 1p)" 1>> /data/logs/install_version.txt'
+    when: ansible_os_family=="RedHat"
+
+# check service state
+- name: Check JupyterLab Service
+  shell: systemctl status jupyterlab | grep Active*
+  register: check_rabbitmq_service
+  notify: check_rabbitmq_service

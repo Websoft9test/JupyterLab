@@ -1,17 +1,17 @@
 # 服务启停
 
-使用由Websoft9提供的 RabbitMQ 部署方案，可能需要用到的服务如下：
+使用由Websoft9提供的 JupyterLab 部署方案，可能需要用到的服务如下：
 
-## RabbitMQ
+## JupyterLab
 
 ```shell
-sudo systemctl start rabbitmq-server
-sudo systemctl stop rabbitmq-server
-sudo systemctl restart rabbitmq-server
-sudo systemctl status rabbitmq-server
+sudo systemctl start jupyterlab-server
+sudo systemctl stop jupyterlab-server
+sudo systemctl restart jupyterlab-server
+sudo systemctl status jupyterlab-server
 
-# you can use this debug mode if RabbitMQ service can't run
-rabbitmq-server console
+# you can use this debug mode if JupyterLab service can't run
+jupyterlab-server console
 ```
 
 ### MySQL

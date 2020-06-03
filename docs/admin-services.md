@@ -1,29 +1,29 @@
 # Start or Stop the Services
 
-These commands you must know when you using the RabbitMQ of Websoft9
+These commands you must know when you using the JupyterLab of Websoft9
 
-## RabbitMQ
+## JupyterLab
 
 ```shell
-sudo systemctl start rabbitmq-server
-sudo systemctl stop rabbitmq-server
-sudo systemctl restart rabbitmq-server
-sudo systemctl status rabbitmq-server
+sudo systemctl start jupyterlab-server
+sudo systemctl stop jupyterlab-server
+sudo systemctl restart jupyterlab-server
+sudo systemctl status jupyterlab-server
 
-# you can use this debug mode if RabbitMQ service can't run
-rabbitmq-server console
+# you can use this debug mode if JupyterLab service can't run
+jupyterlab-server console
 ```
 
-## RabbitMQ
+## JupyterLab
 
 ```shell
-sudo systemctl start rabbitmq-server
-sudo systemctl stop rabbitmq-server
-sudo systemctl restart rabbitmq-server
-sudo systemctl status rabbitmq-server
+sudo systemctl start jupyterlab-server
+sudo systemctl stop jupyterlab-server
+sudo systemctl restart jupyterlab-server
+sudo systemctl status jupyterlab-server
 
-# you can use this debug mode if RabbitMQ service can't run
-rabbitmq-server console
+# you can use this debug mode if JupyterLab service can't run
+jupyterlab-server console
 ```
 
 ### MySQL
