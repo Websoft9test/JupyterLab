@@ -4,7 +4,7 @@
 安装文档：https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html
 配置文档：https://jupyter.readthedocs.io/en/latest/projects/content-projects.html#configuration
 支持平台： Debian家族 | RHEL家族 | Windows 
-
+gi
 责任人：helin--
 
 ## 概要
@@ -55,6 +55,9 @@ docker run -p 8888:8888 jupyter/scipy-notebook:17aba6048f44
 ## 服务
 
 本项目安装后会自动生成
+
+## 版本问题
+sudo sh -c "echo jupyter-lab --version 1>> /data/logs/install_version.txt"
 
 ## 常见问题
 
