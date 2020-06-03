@@ -5,7 +5,7 @@
 配置文档：https://jupyter.readthedocs.io/en/latest/projects/content-projects.html#configuration
 支持平台： Debian家族 | RHEL家族 | Windows 
 
-责任人：helin
+责任人：helin--
 
 ## 概要
 
