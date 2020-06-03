@@ -11,7 +11,7 @@
 - name: Copy jupyterlab.service
   copy:
     src: jupyterlab.service
-    dest: /lib/systemd/system/rethinkdb.service
+    dest: /lib/systemd/system/jupyterlab.service
 
 
 # Enable service
